@@ -1,6 +1,7 @@
 package com.example.BookMyShow;
 
 import com.example.BookMyShow.controller.UserController;
+import com.example.BookMyShow.dtos.SignInRequestDto;
 import com.example.BookMyShow.dtos.SignUpRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,12 +22,17 @@ public class BookMyShowApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		SignUpRequestDto signUpRequestDto = new SignUpRequestDto();
-		signUpRequestDto.setEmail("rsr2173@gmail.com");
-		signUpRequestDto.setPassword("Ramesh@99");
-		signUpRequestDto.setName("Ramesh");
+//		SignUpRequestDto signUpRequestDto = new SignUpRequestDto();
+//		signUpRequestDto.setEmail("rsr2173@gmail.com");
+//		signUpRequestDto.setPassword("Ramesh@99");
+//		signUpRequestDto.setName("Ramesh");
 
+//		userController.signUp(signUpRequestDto);
 
-		userController.signUp(signUpRequestDto);
+		SignInRequestDto signInRequestDto = new SignInRequestDto();
+
+		signInRequestDto.setEmail("rsr2173@gmail.com");
+		signInRequestDto.setPassword("Ramesh@9956");
+		userController.signIn(signInRequestDto);
 	}
 }

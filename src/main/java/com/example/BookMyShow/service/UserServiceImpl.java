@@ -1,6 +1,7 @@
 package com.example.BookMyShow.service;
 
 import com.example.BookMyShow.exceptions.UserFoundException;
+import com.example.BookMyShow.exceptions.UserNotFoundException;
 import com.example.BookMyShow.models.User;
 import com.example.BookMyShow.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,27 @@ public class UserServiceImpl implements UserService{
         userObj.setPassword(hashedPassword);
 
         return userRepo.save(userObj);
+    }
+
+    @Override
+    public User signIn(String email, String password) throws UserFoundException, UserNotFoundException {
+        User user = userRepo.findByEmail(email);
+
+        System.out.println("user......." + user);
+
+        if(user == null){
+            throw new UserFoundException("Check your email.");
+        }
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        boolean bool = bCryptPasswordEncoder.matches(password , user.getPassword());
+        System.out.println("Boooooooooooool" + bool);
+
+
+        if(!bool){
+            throw new UserNotFoundException("Password is Incorrect");
+        }
+        return user;
     }
 }

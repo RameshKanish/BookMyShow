@@ -2,6 +2,7 @@ package com.example.BookMyShow.controller;
 
 
 import com.example.BookMyShow.dtos.ResponseStatus;
+import com.example.BookMyShow.dtos.SignInRequestDto;
 import com.example.BookMyShow.dtos.SignUpRequestDto;
 import com.example.BookMyShow.dtos.SignUpResponseDto;
 import com.example.BookMyShow.exceptions.UserFoundException;
@@ -30,6 +31,17 @@ public class UserController {
             signUpResponseDto.setResponseStatus(ResponseStatus.SUCCESS);
         }catch (Exception e){
             signUpResponseDto.setResponseStatus(ResponseStatus.FAILURE);
+        }
+        return signUpResponseDto;
+    }
+
+    public SignUpResponseDto signIn(SignInRequestDto signInRequestDto){
+        SignUpResponseDto signUpResponseDto = new SignUpResponseDto();
+        try {
+            User user = this.userService.signIn(signInRequestDto.getEmail() , signInRequestDto.getPassword());
+            signUpResponseDto.setResponseStatus(ResponseStatus.SUCCESS);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return signUpResponseDto;
     }
