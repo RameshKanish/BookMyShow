@@ -1,15 +1,23 @@
 package com.example.BookMyShow.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 public class Screen extends BaseModel{
     private String name;
+
+    @Enumerated(value = EnumType.ORDINAL)
+    @ElementCollection
+    private List<Feature> features;
+
+    @OneToMany(mappedBy = "screen" , orphanRemoval = true)
+    private List<Seat> seats;
+
+    @ManyToOne()
+    @JoinColumn(name = "theatre_id" , nullable = false)
+    private Theatre theatre;
 
     public String getName() {
         return name;
@@ -19,6 +27,7 @@ public class Screen extends BaseModel{
         this.name = name;
     }
 
+
     public List<Seat> getSeats() {
         return seats;
     }
@@ -26,6 +35,7 @@ public class Screen extends BaseModel{
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
     }
+
 
     public List<Feature> getFeatures() {
         return features;
@@ -35,10 +45,12 @@ public class Screen extends BaseModel{
         this.features = features;
     }
 
-    @OneToMany(mappedBy = "screen" , orphanRemoval = true)
-    private List<Seat> seats;
 
-    @Enumerated(value = EnumType.ORDINAL)
-    @ElementCollection
-    private List<Feature> features;
+    public Theatre getTheatre() {
+        return theatre;
+    }
+
+    public void setTheatre(Theatre theatre) {
+        this.theatre = theatre;
+    }
 }

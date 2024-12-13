@@ -1,4 +1,4 @@
-package com.example.BookMyShow.dtos;
+package com.example.BookMyShow.dtos.signInDtos;
 
 
 

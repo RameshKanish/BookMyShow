@@ -1,12 +1,6 @@
 package com.example.BookMyShow.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -15,6 +9,16 @@ import java.util.List;
 public class Theatre extends BaseModel{
     private String name;
     private String address;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id" , nullable = false)
+    private City city;
+
+    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Screen> screens;
+
+
+
 
     public String getName() {
         return name;
@@ -47,11 +51,4 @@ public class Theatre extends BaseModel{
     public void setScreens(List<Screen> screens) {
         this.screens = screens;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "city_id" , nullable = false)
-    private City city;
-
-    @OneToMany
-    private List<Screen> screens;
 }

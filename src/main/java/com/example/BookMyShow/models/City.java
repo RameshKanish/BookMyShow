@@ -2,9 +2,6 @@ package com.example.BookMyShow.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -12,6 +9,13 @@ import java.util.List;
 
 @Entity
 public class City extends BaseModel{
+
+    private String name;
+
+    @OneToMany(mappedBy = "city" , orphanRemoval = true)
+    private List<Theatre> theatres;
+
+
     public String getName() {
         return name;
     }
@@ -28,8 +32,5 @@ public class City extends BaseModel{
         this.theatres = theatres;
     }
 
-    private String name;
 
-    @OneToMany(mappedBy = "city" , orphanRemoval = true)
-    private List<Theatre> theatres;
 }

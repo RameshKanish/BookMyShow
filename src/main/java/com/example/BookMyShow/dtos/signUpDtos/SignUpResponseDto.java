@@ -1,7 +1,7 @@
-package com.example.BookMyShow.dtos;
+package com.example.BookMyShow.dtos.signUpDtos;
 
 
-
+import com.example.BookMyShow.dtos.ResponseStatus;
 
 public class SignUpResponseDto {
     public ResponseStatus getResponseStatus() {

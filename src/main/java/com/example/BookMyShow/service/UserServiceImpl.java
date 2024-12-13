@@ -21,6 +21,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public User signUp(String name, String email, String password) throws UserFoundException {
 
+
+        System.out.println("name" + name);
+
+        System.out.println("name" + email);
+
+        System.out.println("name" + password);
+
         if(userRepo.findByEmail(email) != null){
             throw new UserFoundException("User is already present in this email.");
         }
@@ -49,7 +56,6 @@ public class UserServiceImpl implements UserService{
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
         boolean bool = bCryptPasswordEncoder.matches(password , user.getPassword());
-        System.out.println("Boooooooooooool" + bool);
 
 
         if(!bool){
