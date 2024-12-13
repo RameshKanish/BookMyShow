@@ -7,4 +7,6 @@ import com.example.BookMyShow.models.User;
 public interface UserService {
     public User signUp(String name , String email , String password) throws UserFoundException;
     public User signIn(String email , String password) throws UserFoundException, UserNotFoundException;
+    public User getOneUser(int userId) throws  UserNotFoundException;
+    public User update(int userId , String name , String email , String password) throws UserNotFoundException;
 }

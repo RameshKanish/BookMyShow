@@ -5,6 +5,7 @@ import com.example.BookMyShow.dtos.ResponseStatus;
 import com.example.BookMyShow.dtos.signInDtos.SignInRequestDto;
 import com.example.BookMyShow.dtos.signUpDtos.SignUpRequestDto;
 import com.example.BookMyShow.dtos.signUpDtos.SignUpResponseDto;
+import com.example.BookMyShow.dtos.updateDto.UpdateRequestDto;
 import com.example.BookMyShow.exceptions.UserFoundException;
 import com.example.BookMyShow.exceptions.UserNotFoundException;
 import com.example.BookMyShow.models.User;
@@ -12,20 +13,15 @@ import com.example.BookMyShow.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/auth")
 public class UserController {
 
-
     @Autowired
     private UserService userService;
-
 
     @PostMapping("/signUp")
     public ResponseEntity<Object> signUp(@RequestBody  SignUpRequestDto signUpRequestDto) throws UserFoundException {
@@ -53,6 +49,28 @@ public class UserController {
             return new ResponseEntity<>(signUpResponseDto , HttpStatus.ACCEPTED);
         } catch (UserNotFoundException | UserFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<Object> getOneUser(@PathVariable int userId) throws UserNotFoundException {
+        try {
+            User user = userService.getOneUser(userId);
+            return new ResponseEntity<>(user , HttpStatus.FOUND);
+        }
+        catch (UserNotFoundException err){
+            return new ResponseEntity<>(err.getMessage() , HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<Object> updateUser(@RequestBody UpdateRequestDto updateRequestDto)throws UserNotFoundException{
+        try{
+            User user = userService.update(updateRequestDto.getUserId() , updateRequestDto.getName(), updateRequestDto.getEmail(), updateRequestDto.getPassword());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (UserNotFoundException err){
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
     }
 }

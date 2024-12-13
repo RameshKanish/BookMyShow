@@ -31,6 +31,4 @@ public class City extends BaseModel{
     public void setTheatres(List<Theatre> theatres) {
         this.theatres = theatres;
     }
-
-
 }

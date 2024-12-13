@@ -15,6 +15,7 @@ public class Ticket extends BaseModel{
     @ManyToOne
     @JoinColumn(name = "show_id", nullable = false)
     private Show show;
+
     @OneToMany(mappedBy = "ticket" , orphanRemoval = true)
     private List<ShowSeat> showSeats;
 

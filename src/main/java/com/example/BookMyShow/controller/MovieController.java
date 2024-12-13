@@ -4,6 +4,7 @@ package com.example.BookMyShow.controller;
 import com.example.BookMyShow.dtos.MovieDtos.MovieRequestDto;
 import com.example.BookMyShow.dtos.MovieDtos.MovieResponseDto;
 import com.example.BookMyShow.dtos.ResponseStatus;
+import com.example.BookMyShow.exceptions.MovieNotFoundException;
 import com.example.BookMyShow.models.Movie;
 import com.example.BookMyShow.service.movie.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,16 +53,22 @@ public class MovieController {
      */
 
     @GetMapping("getMovies")
-    public ResponseEntity<MovieResponseDto> getAllMovie(){
-        MovieResponseDto movieResponseDto = new MovieResponseDto();
+    public ResponseEntity<List<Movie>> getAllMovie(){
         try {
             List<Movie> movies = movieService.getAllMovies();
-            movieResponseDto.setMovies(movies);
-            movieResponseDto.setResponseStatus(ResponseStatus.SUCCESS);
-            return new ResponseEntity<>(movieResponseDto , HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(movies , HttpStatus.ACCEPTED);
         }catch (Exception e){
-            movieResponseDto.setResponseStatus(ResponseStatus.FAILURE);
+            return new ResponseEntity<>(new ArrayList<>() , HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(movieResponseDto , HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @GetMapping("/{movieId}")
+    public ResponseEntity<Object> getOneMovie(@PathVariable int movieId){
+        try {
+            Movie movie = movieService.getOneMovie(movieId);
+            return new ResponseEntity<>(movie , HttpStatus.FOUND);
+        } catch (MovieNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_FOUND);
+        }
     }
 }

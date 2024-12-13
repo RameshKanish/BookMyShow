@@ -18,8 +18,6 @@ public class Theatre extends BaseModel{
     private List<Screen> screens;
 
 
-
-
     public String getName() {
         return name;
     }

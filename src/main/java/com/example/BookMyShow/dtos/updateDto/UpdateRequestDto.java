@@ -1,11 +1,7 @@
-package com.example.BookMyShow.models;
+package com.example.BookMyShow.dtos.updateDto;
 
+public class UpdateRequestDto {
 
-import jakarta.persistence.Entity;
-import lombok.Builder;
-
-@Entity
-public class User extends BaseModel{
     public String getName() {
         return name;
     }
@@ -29,17 +25,16 @@ public class User extends BaseModel{
     public void setPassword(String password) {
         this.password = password;
     }
+    private int userId;
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
     private String name;
     private String email;
     private String password;
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-    private boolean isDeleted = false;
 }

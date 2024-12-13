@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -53,5 +55,36 @@ public class UserServiceImpl implements UserService{
             throw new UserNotFoundException("Password is Incorrect");
         }
         return user;
+    }
+
+    @Override
+    public User getOneUser(int userId) throws UserNotFoundException {
+        User user = userRepo.findByIdAndIsDeleted(userId , false);
+
+        if(user == null){
+            throw new UserNotFoundException("User is Not found");
+        }
+
+        return user;
+    }
+
+    @Override
+    public User update(int userId , String name, String email, String password) throws UserNotFoundException {
+        Optional<User> user = userRepo.findById(userId);
+        if (user.isEmpty()){
+            throw new UserNotFoundException("User Not found for this id" + userId);
+        }
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = bCryptPasswordEncoder.encode(password);
+
+        User userObj = new User();
+
+        userObj.setId(userId);
+        userObj.setName(name);
+        userObj.setEmail(email);
+        userObj.setPassword(hashedPassword);
+
+        return userRepo.save(userObj);
     }
 }
