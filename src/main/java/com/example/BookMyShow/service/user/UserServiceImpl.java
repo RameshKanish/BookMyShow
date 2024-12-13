@@ -1,4 +1,4 @@
-package com.example.BookMyShow.service;
+package com.example.BookMyShow.service.user;
 
 import com.example.BookMyShow.exceptions.UserFoundException;
 import com.example.BookMyShow.exceptions.UserNotFoundException;
@@ -21,13 +21,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public User signUp(String name, String email, String password) throws UserFoundException {
 
-
-        System.out.println("name" + name);
-
-        System.out.println("name" + email);
-
-        System.out.println("name" + password);
-
         if(userRepo.findByEmail(email) != null){
             throw new UserFoundException("User is already present in this email.");
         }
@@ -44,13 +37,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User signIn(String email, String password) throws UserFoundException, UserNotFoundException {
+    public User signIn(String email, String password) throws UserNotFoundException {
         User user = userRepo.findByEmail(email);
 
-        System.out.println("user......." + user);
-
         if(user == null){
-            throw new UserFoundException("Check your email.");
+            throw new UserNotFoundException("Check your email.");
         }
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();

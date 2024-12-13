@@ -1,4 +1,4 @@
-package com.example.BookMyShow.service;
+package com.example.BookMyShow.service.ticket;
 
 import com.example.BookMyShow.exceptions.SeatNotFoundException;
 import com.example.BookMyShow.exceptions.UserNotFoundException;
@@ -7,11 +7,13 @@ import com.example.BookMyShow.repository.ShowSeatRepo;
 import com.example.BookMyShow.repository.TicketRepo;
 import com.example.BookMyShow.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class TicketServiceImpl implements TicketService{
 
     @Autowired

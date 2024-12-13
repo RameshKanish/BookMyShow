@@ -1,4 +1,4 @@
-package com.example.BookMyShow.service;
+package com.example.BookMyShow.service.user;
 
 import com.example.BookMyShow.exceptions.UserFoundException;
 import com.example.BookMyShow.exceptions.UserNotFoundException;

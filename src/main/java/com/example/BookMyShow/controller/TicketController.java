@@ -4,7 +4,7 @@ import com.example.BookMyShow.dtos.ticketsDtos.TicketRequestDto;
 import com.example.BookMyShow.exceptions.SeatNotFoundException;
 import com.example.BookMyShow.exceptions.UserNotFoundException;
 import com.example.BookMyShow.models.Ticket;
-import com.example.BookMyShow.service.TicketService;
+import com.example.BookMyShow.service.ticket.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
