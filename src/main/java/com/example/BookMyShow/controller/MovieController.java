@@ -71,4 +71,10 @@ public class MovieController {
             return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{movieId}")
+    public boolean deleteMovie(@PathVariable int movieId) throws MovieNotFoundException {
+        boolean isDeleted = movieService.deleteMovie(movieId);
+        return isDeleted;
+    }
 }
