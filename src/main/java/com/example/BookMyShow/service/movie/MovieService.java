@@ -15,5 +15,4 @@ public interface MovieService {
     public Movie getOneMovie(int movieId) throws MovieNotFoundException;
     public boolean deleteMovie(int movieId) throws MovieNotFoundException;
 
-
 }

@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface MovieRepo extends JpaRepository<Movie, Integer> {
-
     // Custom query to find a movie by id where is_deleted is false
     @Query("SELECT m FROM movie m WHERE m.id = :id AND m.isDeleted = false")
     Optional<Movie> findByIdIsDeletedFalse(@Param("id") int movieId);
