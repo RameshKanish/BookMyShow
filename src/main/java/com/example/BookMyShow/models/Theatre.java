@@ -1,5 +1,6 @@
 package com.example.BookMyShow.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class Theatre extends BaseModel{
 
     @ManyToOne
     @JoinColumn(name = "city_id" , nullable = false)
+    @JsonBackReference
     private City city;
 
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
