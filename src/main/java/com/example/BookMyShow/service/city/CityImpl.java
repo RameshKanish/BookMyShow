@@ -5,6 +5,8 @@ import com.example.BookMyShow.repository.CityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CityImpl implements CityService{
 
@@ -18,5 +20,10 @@ public class CityImpl implements CityService{
         city.setName(name);
         cityRepo.save(city);
         return city;
+    }
+
+    @Override
+    public List<City> getAllCity() {
+        return cityRepo.findAll();
     }
 }
