@@ -66,6 +66,4 @@ public class ShowSeat extends BaseModel{
         this.ticket = ticket;
     }
 
-
-
 }

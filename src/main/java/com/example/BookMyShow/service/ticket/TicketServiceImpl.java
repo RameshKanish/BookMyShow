@@ -57,7 +57,6 @@ public class TicketServiceImpl implements TicketService{
         ticket.setShowSeats(showSeats);
         ticket.setTicketStatus(TicketStatus.PENDING);
 
-
         return  ticketRepo.save(ticket);
     }
 }

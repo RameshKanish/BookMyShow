@@ -23,7 +23,6 @@ public class TicketController{
 
     @PostMapping("/createBooking")
 
-
     public ResponseEntity<Ticket> bookTicket(@RequestBody TicketRequestDto ticketRequestDto) throws UserNotFoundException, SeatNotFoundException {
         Ticket ticket = ticketService.bookTicket(ticketRequestDto.getShowSeats(), ticketRequestDto.getUserId());
         return new ResponseEntity<>(ticket , HttpStatus.CREATED);
