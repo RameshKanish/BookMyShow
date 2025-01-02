@@ -1,5 +1,7 @@
 package com.example.BookMyShow.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,10 +15,12 @@ public class Screen extends BaseModel{
     private List<Feature> features;
 
     @OneToMany(mappedBy = "screen" , orphanRemoval = true)
+    @JsonManagedReference
     private List<Seat> seats;
 
     @ManyToOne()
     @JoinColumn(name = "theatre_id" , nullable = false)
+    @JsonBackReference
     private Theatre theatre;
 
     public String getName() {
