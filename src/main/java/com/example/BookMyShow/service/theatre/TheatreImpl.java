@@ -8,6 +8,7 @@ import com.example.BookMyShow.repository.TheatreRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,11 @@ public class TheatreImpl implements TheatreService{
         theatre.setAddress(address);
         theatre.setCity(city);
         return theatreRepo.save(theatre);
+    }
+
+    @Override
+    public List<Theatre> getAllTheatre() {
+        List<Theatre> theatres = theatreRepo.findAll();
+        return theatres;
     }
 }

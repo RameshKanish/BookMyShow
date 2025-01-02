@@ -7,8 +7,6 @@ import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
-
-
 @Entity
 public class City extends BaseModel{
 

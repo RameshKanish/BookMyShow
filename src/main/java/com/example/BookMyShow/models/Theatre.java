@@ -11,7 +11,7 @@ public class Theatre extends BaseModel{
     private String name;
     private String address;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id" , nullable = false)
     @JsonBackReference
     private City city;
@@ -51,4 +51,5 @@ public class Theatre extends BaseModel{
     public void setScreens(List<Screen> screens) {
         this.screens = screens;
     }
+
 }
