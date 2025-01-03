@@ -1,23 +1,11 @@
-package com.example.BookMyShow.models;
+package com.example.BookMyShow.dtos.seatRequestDtos;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+import com.example.BookMyShow.models.SeatType;
 
-@Entity(name = "seat")
-
-public class Seat extends BaseModel{
+public class SeatRequest {
     private String name;
-    private int rowNum ;
+    private int rowNum;
     private int colNum;
-
-    @ManyToOne
-    @JoinColumn(name = "screen_id" , nullable = false)
-    @JsonBackReference
-    private Screen screen;
-
-
-    @Enumerated(value = EnumType.ORDINAL)
-    private SeatType seatType;
 
     public String getName() {
         return name;
@@ -43,12 +31,12 @@ public class Seat extends BaseModel{
         this.colNum = colNum;
     }
 
-    public Screen getScreen() {
-        return screen;
+    public int getScreenId() {
+        return screenId;
     }
 
-    public void setScreen(Screen screen) {
-        this.screen = screen;
+    public void setScreenId(int screenId) {
+        this.screenId = screenId;
     }
 
     public SeatType getSeatType() {
@@ -59,4 +47,6 @@ public class Seat extends BaseModel{
         this.seatType = seatType;
     }
 
+    private int screenId;
+    private SeatType seatType;
 }
