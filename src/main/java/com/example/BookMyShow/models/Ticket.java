@@ -1,26 +1,33 @@
 package com.example.BookMyShow.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity(name = "ticket")
 public class Ticket extends BaseModel{
+
     @ManyToOne
     private User user;
 
     @ManyToOne
+    @JsonManagedReference
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "show_id", nullable = false)
+    @JsonBackReference
     private Show show;
 
     @OneToMany(mappedBy = "ticket" , orphanRemoval = true)
+    @JsonManagedReference
     private List<ShowSeat> showSeats;
 
     private double total_amount;
 
+    @Enumerated(value = EnumType.ORDINAL)
     private TicketStatus ticketStatus;
 
     public TicketStatus getTicketStatus() {

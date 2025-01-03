@@ -21,7 +21,7 @@ public class SeatController {
 
     @PostMapping("createSeat")
     public ResponseEntity<Seat> createSeat(@RequestBody SeatRequest seatRequest) throws ScreenNotFoundException {
-        Seat seat = seatService.createSeat(seatRequest.getName() , seatRequest.getRowNum() ,seatRequest.getColNum() ,seatRequest.getSeatType() , seatRequest.getScreenId());
+        Seat seat = seatService.createSeat(seatRequest.getName() , seatRequest.getRowNum() ,seatRequest.getColNum() ,seatRequest.getSeatType() , seatRequest.getScreenId()) ;
         return new ResponseEntity<>(seat, HttpStatus.CREATED);
     }
 }

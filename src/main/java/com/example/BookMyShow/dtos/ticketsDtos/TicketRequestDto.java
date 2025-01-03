@@ -6,16 +6,11 @@ import java.util.List;
 
 public class TicketRequestDto {
 
-    private List<Integer> showSeats;
     private int userId;
-
-    public List<Integer> getShowSeats() {
-        return showSeats;
-    }
-
-    public void setShowSeats(List<Integer> showSeats) {
-        this.showSeats = showSeats;
-    }
+    private int showId;
+    List<Integer> seatIds;
+    private double totalAmount;
+    private String ticketStatus;
 
     public int getUserId() {
         return userId;
@@ -23,6 +18,40 @@ public class TicketRequestDto {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getShowId() {
+        return showId;
+    }
+
+    public List<Integer> getSeatIds() {
+        return seatIds;
+    }
+
+    public void setSeatIds(List<Integer> seatIds) {
+        this.seatIds = seatIds;
+    }
+
+    public void setShowId(int showId) {
+        this.showId = showId;
+    }
+
+
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(String ticketStatus) {
+        this.ticketStatus = ticketStatus;
     }
 
 }

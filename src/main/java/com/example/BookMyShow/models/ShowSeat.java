@@ -3,6 +3,8 @@ package com.example.BookMyShow.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(name = "show_seats")
 public class ShowSeat extends BaseModel{
 
@@ -18,11 +20,11 @@ public class ShowSeat extends BaseModel{
 
 
     @ManyToOne
-    @JoinColumn(name = "show_id", nullable = false)
+    @JoinColumn(name = "show_id")
     private Show show;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_id", nullable = false)
+    @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
 

@@ -1,17 +1,22 @@
 package com.example.BookMyShow.service.ticket;
 
+import com.example.BookMyShow.exceptions.MovieNotFoundException;
 import com.example.BookMyShow.exceptions.SeatNotFoundException;
+import com.example.BookMyShow.exceptions.ShowNotFoundException;
 import com.example.BookMyShow.exceptions.UserNotFoundException;
 import com.example.BookMyShow.models.*;
-import com.example.BookMyShow.repository.ShowSeatRepo;
-import com.example.BookMyShow.repository.TicketRepo;
-import com.example.BookMyShow.repository.UserRepo;
+import com.example.BookMyShow.repository.*;
+import com.example.BookMyShow.service.EmailService.EmailService;
+import com.example.BookMyShow.service.PDFGenerator;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketServiceImpl implements TicketService{
@@ -25,9 +30,21 @@ public class TicketServiceImpl implements TicketService{
     @Autowired
     private TicketRepo ticketRepo;
 
+    @Autowired
+    private MovieRepo movieRepo;
+
+    @Autowired
+    private ShowRepo showRepo;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private PDFGenerator pdfGenerator;
+
     @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
-    public Ticket bookTicket(List<Integer> showSeatIds, int userId) throws UserNotFoundException, SeatNotFoundException {
+    public Ticket bookTicket(int userId, int showId, List<Integer> seatIds, double totalAmount, String ticketStatus) throws UserNotFoundException, SeatNotFoundException, MovieNotFoundException, ShowNotFoundException, FileNotFoundException, MessagingException {
 
         /*
         1. check if User is Valid user else throw an exception
@@ -37,26 +54,42 @@ public class TicketServiceImpl implements TicketService{
         5. Create a Ticket Object
         6. Store it in DB return a ticket to client
          */
+        Optional<User> user = userRepo.findById(userId);
+        if(user.isEmpty()){
+            throw new UserNotFoundException("User Not Found");
+        }
 
-        User user = userRepo.findById(userId).orElseThrow(() -> new UserNotFoundException("User is Not Found"));
-        List<ShowSeat> showSeats = showSeatRepo.findBySeat_IdInAndSeatStatus(showSeatIds , SeatStatus.AVAILABLE);
-        if(showSeatIds.size() != showSeats.size()){
-            throw new SeatNotFoundException("This Seat is Blocked By some Users");
+       List<ShowSeat> showSeats = showSeatRepo.findBySeat_IdInAndSeatStatus(seatIds , SeatStatus.AVAILABLE);
+        if(showSeats.size() != seatIds.size()){
+            throw new SeatNotFoundException("Seat are unavailable");
+        }
+
+        Optional<Show> show = showRepo.findById(showId);
+        if(show.isEmpty()){
+            throw new ShowNotFoundException("Show Noy Found");
         }
         showSeats.forEach(showSeat -> {
-            showSeat.setBookBy(user);
             showSeat.setSeatStatus(SeatStatus.BLOCKED);
+            showSeat.setBookBy(user.orElse(null));
         });
 
         Ticket ticket = new Ticket();
 
-        ticket.setUser(user);
-        Show show = showSeats.get(0).getShow();
-        ticket.setShow(show);
-        ticket.setMovie(show.getMovie());
+        ticket.setUser(user.orElse(null));
         ticket.setShowSeats(showSeats);
+        ticket.setTotal_amount(totalAmount);
+        ticket.setShow(show.orElse(null));
         ticket.setTicketStatus(TicketStatus.PENDING);
 
-        return  ticketRepo.save(ticket);
+        ticketRepo.save(ticket);
+
+        String pdf = PDFGenerator.generateTicketPDF(ticket);
+
+        String ToEmail = ticket.getUser().getEmail();
+        emailService.sendEmail(ToEmail ,
+                "Your TicketConfirmation " ,
+                "Please find your ticket attached.",
+                pdf);
+        return ticket;
     }
 }

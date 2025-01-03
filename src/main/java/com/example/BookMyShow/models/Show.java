@@ -13,6 +13,11 @@ public class Show extends BaseModel{
     @ManyToOne
     private Screen screen;
 
+    @ManyToOne
+    private Movie movie;
+
+    private Date startTime;
+
     public Screen getScreen() {
         return screen;
     }
@@ -37,8 +42,5 @@ public class Show extends BaseModel{
         this.startTime = startTime;
     }
 
-    @ManyToOne
-    private Movie movie;
 
-    private Date startTime;
 }

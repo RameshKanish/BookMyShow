@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -72,5 +74,11 @@ public class UserController {
         }catch (UserNotFoundException err){
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
+    }
+
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> user = userService.getAllUsers();
+        return new ResponseEntity<>(user , HttpStatus.OK);
     }
 }

@@ -7,6 +7,8 @@ public class SeatRequest {
     private int rowNum;
     private int colNum;
 
+
+
     public String getName() {
         return name;
     }
