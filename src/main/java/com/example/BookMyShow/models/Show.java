@@ -41,5 +41,4 @@ public class Show extends BaseModel{
     private Movie movie;
 
     private Date startTime;
-
 }

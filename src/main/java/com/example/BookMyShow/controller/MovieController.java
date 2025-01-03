@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("movie")
+@RequestMapping("/movie")
 public class MovieController {
 
     @Autowired private MovieService movieService;
@@ -30,8 +30,11 @@ public class MovieController {
      * @param {} movieRequestDto which is used to create a movie.
      */
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity<MovieResponseDto> createMovie(@RequestBody MovieRequestDto movieRequestDto){
+
+        System.out.println("Console" + movieRequestDto.getMovieName());
+
         MovieResponseDto movieResponseDto = new MovieResponseDto();
         try {
             Movie movie = movieService.createMovie(movieRequestDto.getMovieName() , movieRequestDto.getGenre());

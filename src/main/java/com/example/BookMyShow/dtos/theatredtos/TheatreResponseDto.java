@@ -11,6 +11,7 @@ public class TheatreResponseDto {
     private String address;
     private int city_id;
     private List<Screen> screens;
+
     public TheatreResponseDto(Theatre theatre){
         this.id = theatre.getId();
         this.name = theatre.getName();

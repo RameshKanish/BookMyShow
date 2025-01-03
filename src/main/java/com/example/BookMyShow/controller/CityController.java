@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("city")
+@RequestMapping("/city")
 public class CityController {
 
     @Autowired
     private CityService cityService;
 
-    @PostMapping("createCity")
+    @PostMapping("/createCity")
     public ResponseEntity<City> createCity (@RequestBody CityRequestDto cityRequestDto) {
         City city = cityService.createCity(cityRequestDto.getName());
         return new ResponseEntity<>(city , HttpStatus.CREATED);
