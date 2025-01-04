@@ -1,6 +1,8 @@
 package com.example.BookMyShow.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class ShowSeat extends BaseModel{
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
+    @JsonBackReference
     private Ticket ticket;
 
 

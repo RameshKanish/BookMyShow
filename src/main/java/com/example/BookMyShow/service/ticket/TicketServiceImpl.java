@@ -81,7 +81,14 @@ public class TicketServiceImpl implements TicketService{
         ticket.setShow(show.orElse(null));
         ticket.setTicketStatus(TicketStatus.PENDING);
 
-        ticketRepo.save(ticket);
+        Ticket savedTicket = ticketRepo.save(ticket);
+
+        if(savedTicket == null){
+            throw new RuntimeException("Ticket Not Created");
+        }
+
+        showSeats.forEach(showSeat -> showSeat.setTicket(savedTicket));
+        showSeatRepo.saveAll(showSeats);
 
         String pdf = PDFGenerator.generateTicketPDF(ticket);
 
