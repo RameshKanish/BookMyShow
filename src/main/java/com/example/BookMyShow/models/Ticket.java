@@ -12,9 +12,7 @@ public class Ticket extends BaseModel{
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    @JsonManagedReference
-    private Movie movie;
+
 
     @ManyToOne
     @JoinColumn(name = "show_id", nullable = false)
@@ -46,13 +44,7 @@ public class Ticket extends BaseModel{
         this.user = user;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
 
     public Show getShow() {
         return show;

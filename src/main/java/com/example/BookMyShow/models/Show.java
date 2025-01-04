@@ -1,6 +1,7 @@
 package com.example.BookMyShow.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -11,9 +12,11 @@ import java.util.Date;
 public class Show extends BaseModel{
 
     @ManyToOne
+    @JsonManagedReference
     private Screen screen;
 
     @ManyToOne
+    @JsonManagedReference
     private Movie movie;
 
     private Date startTime;

@@ -65,6 +65,8 @@ public class TicketServiceImpl implements TicketService{
         }
 
         Optional<Show> show = showRepo.findById(showId);
+
+
         if(show.isEmpty()){
             throw new ShowNotFoundException("Show Noy Found");
         }

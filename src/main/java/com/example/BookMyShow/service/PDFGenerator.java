@@ -83,6 +83,13 @@ public class PDFGenerator {
                             "Date: " + dateFormat.format(new Date())
             ));
 
+            showSeatTable.addCell(createHeaderCell("Theatre Name" , headerColor));
+            String value = ticket.getShow().getScreen().getTheatre().getName()+ " " +
+                    ticket.getShow().getScreen().getTheatre().getCity().getName();
+
+            Cell cell = createValueCell(value);
+            showSeatTable.addCell(cell);
+
             showSeatTable.addCell(createHeaderCell("Seats", headerColor));
             StringBuilder seats = new StringBuilder();
             ticket.getShowSeats().forEach(showSeat ->
