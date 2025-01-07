@@ -7,7 +7,7 @@ import com.example.BookMyShow.exceptions.UserNotFoundException;
 import com.example.BookMyShow.models.*;
 import com.example.BookMyShow.repository.*;
 import com.example.BookMyShow.service.EmailService.EmailService;
-import com.example.BookMyShow.service.PDFGenerator;
+//import com.example.BookMyShow.service.PDFGenerator;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +39,8 @@ public class TicketServiceImpl implements TicketService{
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private PDFGenerator pdfGenerator;
+//    @Autowired
+//    private PDFGenerator pdfGenerator;
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
@@ -92,13 +92,13 @@ public class TicketServiceImpl implements TicketService{
         showSeats.forEach(showSeat -> showSeat.setTicket(savedTicket));
         showSeatRepo.saveAll(showSeats);
 
-        String pdf = PDFGenerator.generateTicketPDF(ticket);
-
-        String ToEmail = ticket.getUser().getEmail();
-        emailService.sendEmail(ToEmail ,
-                "Your TicketConfirmation " ,
-                "Please find your ticket attached.",
-                pdf);
+//        String pdf = PDFGenerator.generateTicketPDF(ticket);
+//
+//        String ToEmail = ticket.getUser().getEmail();
+//        emailService.sendEmail(ToEmail ,
+//                "Your TicketConfirmation " ,
+//                "Please find your ticket attached.",
+//                pdf);
         return ticket;
     }
 }

@@ -71,11 +71,11 @@
 		</dependency>
 
 		<!-- iText PDF for generating PDFs (optional) -->
-		<dependency>
-			<groupId>com.itextpdf</groupId>
-			<artifactId>itext7-core</artifactId>
-			<version>7.1.16</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.itextpdf</groupId>-->
+<!--			<artifactId>itext7-core</artifactId>-->
+<!--			<version>7.1.16</version>-->
+<!--		</dependency>-->
 
 		<!-- Spring Security for added security (optional) -->
 		<dependency>
