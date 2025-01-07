@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/movie")
 public class MovieController {
 
